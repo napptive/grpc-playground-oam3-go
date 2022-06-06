@@ -1,0 +1,171 @@
+syntax = "proto3";
+
+package playground_oam3;
+option go_package = "github.com/napptive/grpc-playground-oam3-go;grpc_playground_oam3_go";
+
+import "google/protobuf/struct.proto";
+
+//
+// Common
+//
+
+// Metadata associated with a kubernetes entity.
+message Metadata{
+    // Name of the resource
+    string name = 1;
+    // Annotations of the resource.
+    map<string, string> annotations = 2;
+    // Labels related to the resource.
+    map<string, string> labels = 3;
+    // UID is the unique in time and space value for this object. More info: http://kubernetes.io/docs/user-guide/identifiers#uids
+    string uid = 4;
+    // CreationTimestamp with the server time when the object was created.
+    // It is represented in RFC3339 form and is in UTC.
+    string creation_timestamp = 5;
+}
+
+// Reference to a named object.
+message Reference{
+    // Name of the referenced object.
+    string name = 1;
+    // Namespace of the referenced object.
+    string namespace = 2;
+}
+
+// Status defines the loop back status of the abstraction by using CUE template
+message Status{
+    // CustomStatus defines the custom status message that could display to user
+    string custom_status = 1;
+    // HealthPolicy defines the health check policy for the abstraction
+    string health_policy = 2;
+}
+
+//
+// ComponentDefinition
+// 
+
+// ComponentDefinition with the OAM3 componentdefinition.
+message ComponentDefinition{
+    // ApiVersion of the given component definition.
+    string api_version = 1;
+    // Kind of the component definition.
+    string kind = 2;
+    // Metadata associated with the component definition.
+    Metadata metadata = 3;
+    // Spec of the component definition.
+    ComponentDefinitionSpec spec = 4;
+}
+
+//ComponentDefinitionSpec with the component specification.
+message ComponentDefinitionSpec{
+    // Workload is a workload type descriptor
+    WorkloadTypeDescriptor workload = 1;
+    // ChildResourceKinds are the list of GVK of the child resources this workload generates
+    repeated ChildResourceKind child_resource_kinds = 2;
+    // RevisionLabel indicates which label for underlying resources(e.g. pods) of this workload
+	// can be used by trait to create resource selectors(e.g. label selector for pods).
+    string revision_label = 3;
+    // PodSpecPath indicates where/if this workload has K8s podSpec field
+	// if one workload has podSpec, trait can do lot's of assumption such as port, env, volume fields.
+    string pod_spec_path = 4;
+    // Status defines the custom health policy and status message for workload
+    Status status = 5;
+    // Schematic defines the data format and template of the encapsulation of the workload
+	Schematic schematic = 6;
+}
+
+message ChildResourceKind{
+    string api_version = 1;
+    string kind = 2;
+    map<string, string> selector = 3;
+}
+
+// Schematic defines the encapsulation of this capability(workload/trait/scope),
+// the encapsulation can be defined in different ways, e.g. CUE/HCL(terraform)/KUBE(K8s Object)/HELM, etc...
+message Schematic{
+    Kube kube = 1;
+    CUE cue = 2;
+    HELM helm = 3;
+    Terraform terraform = 4;
+}
+
+// Kube defines the encapsulation in raw Kubernetes resource format
+message Kube{
+    // Template defines the raw Kubernetes resource
+    google.protobuf.Struct template = 1;
+    // Parameters defines configurable parameters
+    google.protobuf.Struct parameters = 2;
+}
+
+// CUE defines the encapsulation in CUE format.
+message CUE{
+    // Template defines the abstraction template data of the capability, it will replace the old CUE template in extension field.
+	// Template is a required field if CUE is defined in Capability Definition.
+	string template = 1;
+}
+
+// Helm represents resources used by a Helm module
+message HELM{
+    // Release records a Helm release used by a Helm module workload.
+    google.protobuf.Struct release = 1;
+    // HelmRelease records a Helm repository used by a Helm module workload.
+    google.protobuf.Struct repository = 2;
+}
+
+// Terraform is the struct to describe cloud resources managed by Hashicorp Terraform
+message Terraform{
+    // Configuration is Terraform Configuration
+    string configuration = 1;
+    // Type specifies which Terraform configuration it is, HCL or JSON syntax
+    string type = 2;
+    // Path is the sub-directory of remote git repository. It's valid when remote is set
+    string path = 3;
+    // WriteConnectionSecretToReference specifies the namespace and name of a
+	// Secret to which any connection details for this managed resource should
+	// be written. Connection details frequently include the endpoint, username,
+	// and password required to connect to the managed resource.
+    Reference write_connection_secret_to_reference = 4;
+    // ProviderReference specifies the reference to Provider
+    Reference provider_ref = 5;
+    // DeleteResource will determine whether provisioned cloud resources will be deleted when CR is deleted
+	bool delete_resource = 6;
+    // Region is cloud provider's region. It will override the region in the region field of ProviderReference
+    string region = 7;
+}
+
+//
+// Workload
+//
+
+// WorkloadGVK with the underlying GVK.
+message WorkloadGVK{
+    string api_version = 1;
+    string kind = 2;
+}
+
+// WorkloadTypeDescriptor to refer to a workload type.
+message WorkloadTypeDescriptor{
+    string type = 1;
+    WorkloadGVK definition = 2;
+}
+
+// 
+// Traits
+//
+
+
+//
+// Scopes
+//
+
+//
+// PolicyDefinition
+//
+
+//
+// WorkflowStep
+//
+
+//
+// Application
+//
