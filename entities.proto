@@ -153,18 +153,126 @@ message WorkloadTypeDescriptor{
 // Traits
 //
 
+// TraitDefinition with the definition of a trait
+message TraitDefinition {
+    // ApiVersion of the given trait definition.
+    string api_version = 1;
+    // Kind of the trait definition.
+    string kind = 2;
+    // Metadata associated with the trait definition.
+    Metadata metadata = 3;
+    // Spec of the trait definition.
+    TraitDefinitionSpec spec = 4;
+}
+
+// TraitDefinitionSpec with the spec of a trait
+message TraitDefinitionSpec {
+    // DefinitionRef to the CustomResourceDefinition that defines this trait kind.
+    Reference definition_ref  = 1;
+    // Revision indicates whether a trait is aware of component revision
+    bool revision_enabled = 2;
+    // WorkloadRefPath indicates where/if a trait accepts a workloadRef object    
+    string workload_ref_path = 3;
+    // PodDisruptive specifies whether using the trait will cause the pod to restart or not.
+    bool pod_disruptive = 4;
+    // AppliesToWorkloads specifies the list of workload kinds this trait
+    repeated string applies_to_workloads = 5;
+    // ConflictsWith specifies the list of traits(CRD name, Definition name, CRD group) which could not apply to the same workloads with this trait.
+    // Traits that omit this field can work with any other traits.
+    // Example rules:
+    // "service" # Trait definition name
+    // "services.k8s.io" # API resource/crd name
+    // "*.networking.k8s.io" # API group
+    // "labelSelector:foo=bar" # label selector
+    // labelSelector format: https://pkg.go.dev/k8s.io/apimachinery/pkg/labels#Parse    
+    repeated string conflicts_with = 6;
+    // Schematic defines the data format and template of the encapsulation of the trait
+    Schematic schematic = 7;
+    // Status defines the custom health policy and status message for trait
+    Status status = 8;
+    // ManageWorkload defines the trait would be responsible for creating the workload
+    bool manage_workload = 9;
+    // SkipRevisionAffect defines the update this trait will not generate a new application Revision
+    bool skip_revision_affect = 10;
+}
 
 //
 // Scopes
 //
 
+// ScopeDefinition with the definition of a scope in oam3
+message ScopeDefinition {
+    // ApiVersion of the given scope definition.
+    string api_version = 1;
+    // Kind of the scope definition.
+    string kind = 2;
+    // Metadata associated with the scope definition.
+    Metadata metadata = 3;
+    // Spec of the scope definition.
+    ScopeDefinitionSpec spec = 4;
+}
+
+// ScopeDefinitionSpec with the specification associated with a Scope.
+message ScopeDefinitionSpec {
+    // DefinitionRef to the CustomResourceDefinition that defines this scope kind.
+	Reference definition_ref = 1;
+
+	// WorkloadRefsPath indicates if/where a scope accepts workloadRef objects
+	string workload_refs_path = 2;
+
+	// AllowComponentOverlap specifies whether an OAM component may exist in
+	// multiple instances of this kind of scope.
+	bool allow_component_overlap = 3;
+}
+
 //
 // PolicyDefinition
 //
 
+// PolicyDefinition is the Schema for the policydefinitions API
+message PolicyDefinition{
+    // ApiVersion of the given policy definition.
+    string api_version = 1;
+    // Kind of the policy definition.
+    string kind = 2;
+    // Metadata associated with the policy definition.
+    Metadata metadata = 3;
+    // Spec of the policy definition.
+    PolicyDefinitionSpec spec = 4;
+}
+
+// PolicyDefinitionSpec defines the desired state of PolicyDefinition
+message PolicyDefinitionSpec {
+    // DefinitionRef to the CustomResourceDefinition that defines this policy kind.
+	Reference definition_ref = 1;
+    // Schematic defines the data format and template of the encapsulation of the policy
+    Schematic schematic = 2;
+}
+
+
 //
 // WorkflowStep
 //
+
+// WorkflowStepDefinition with the elements that define a workflow.
+message WorkflowStepDefinition{
+    // ApiVersion of the given workflow step definition.
+    string api_version = 1;
+    // Kind of the workflow step definition.
+    string kind = 2;
+    // Metadata associated with the workflow step definition.
+    Metadata metadata = 3;
+    // Spec of the workflow step definition.
+    WorkflowStepDefinitionSpec spec = 4;
+}
+
+// WorkflowStepDefinitionSpec defines the desired state of WorkflowStepDefinition
+message WorkflowStepDefinitionSpec{
+    // DefinitionRef to the CustomResourceDefinition that defines this workflow step kind.
+	Reference definition_ref = 1;
+    // Schematic defines the data format and template of the encapsulation of the workflow step
+    Schematic schematic = 2;
+}
 
 //
 // Application

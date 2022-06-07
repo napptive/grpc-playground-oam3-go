@@ -915,6 +915,631 @@ func (x *WorkloadTypeDescriptor) GetDefinition() *WorkloadGVK {
 	return nil
 }
 
+// TraitDefinition with the definition of a trait
+type TraitDefinition struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// ApiVersion of the given trait definition.
+	ApiVersion string `protobuf:"bytes,1,opt,name=api_version,json=apiVersion,proto3" json:"api_version,omitempty"`
+	// Kind of the trait definition.
+	Kind string `protobuf:"bytes,2,opt,name=kind,proto3" json:"kind,omitempty"`
+	// Metadata associated with the trait definition.
+	Metadata *Metadata `protobuf:"bytes,3,opt,name=metadata,proto3" json:"metadata,omitempty"`
+	// Spec of the trait definition.
+	Spec *TraitDefinitionSpec `protobuf:"bytes,4,opt,name=spec,proto3" json:"spec,omitempty"`
+}
+
+func (x *TraitDefinition) Reset() {
+	*x = TraitDefinition{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_playground_oam3_entities_proto_msgTypes[13]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *TraitDefinition) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*TraitDefinition) ProtoMessage() {}
+
+func (x *TraitDefinition) ProtoReflect() protoreflect.Message {
+	mi := &file_playground_oam3_entities_proto_msgTypes[13]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use TraitDefinition.ProtoReflect.Descriptor instead.
+func (*TraitDefinition) Descriptor() ([]byte, []int) {
+	return file_playground_oam3_entities_proto_rawDescGZIP(), []int{13}
+}
+
+func (x *TraitDefinition) GetApiVersion() string {
+	if x != nil {
+		return x.ApiVersion
+	}
+	return ""
+}
+
+func (x *TraitDefinition) GetKind() string {
+	if x != nil {
+		return x.Kind
+	}
+	return ""
+}
+
+func (x *TraitDefinition) GetMetadata() *Metadata {
+	if x != nil {
+		return x.Metadata
+	}
+	return nil
+}
+
+func (x *TraitDefinition) GetSpec() *TraitDefinitionSpec {
+	if x != nil {
+		return x.Spec
+	}
+	return nil
+}
+
+// TraitDefinitionSpec with the spec of a trait
+type TraitDefinitionSpec struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// DefinitionRef to the CustomResourceDefinition that defines this trait kind.
+	DefinitionRef *Reference `protobuf:"bytes,1,opt,name=definition_ref,json=definitionRef,proto3" json:"definition_ref,omitempty"`
+	// Revision indicates whether a trait is aware of component revision
+	RevisionEnabled bool `protobuf:"varint,2,opt,name=revision_enabled,json=revisionEnabled,proto3" json:"revision_enabled,omitempty"`
+	// WorkloadRefPath indicates where/if a trait accepts a workloadRef object
+	WorkloadRefPath string `protobuf:"bytes,3,opt,name=workload_ref_path,json=workloadRefPath,proto3" json:"workload_ref_path,omitempty"`
+	// PodDisruptive specifies whether using the trait will cause the pod to restart or not.
+	PodDisruptive bool `protobuf:"varint,4,opt,name=pod_disruptive,json=podDisruptive,proto3" json:"pod_disruptive,omitempty"`
+	// AppliesToWorkloads specifies the list of workload kinds this trait
+	AppliesToWorkloads []string `protobuf:"bytes,5,rep,name=applies_to_workloads,json=appliesToWorkloads,proto3" json:"applies_to_workloads,omitempty"`
+	// ConflictsWith specifies the list of traits(CRD name, Definition name, CRD group) which could not apply to the same workloads with this trait.
+	// Traits that omit this field can work with any other traits.
+	// Example rules:
+	// "service" # Trait definition name
+	// "services.k8s.io" # API resource/crd name
+	// "*.networking.k8s.io" # API group
+	// "labelSelector:foo=bar" # label selector
+	// labelSelector format: https://pkg.go.dev/k8s.io/apimachinery/pkg/labels#Parse
+	ConflictsWith []string `protobuf:"bytes,6,rep,name=conflicts_with,json=conflictsWith,proto3" json:"conflicts_with,omitempty"`
+	// Schematic defines the data format and template of the encapsulation of the trait
+	Schematic *Schematic `protobuf:"bytes,7,opt,name=schematic,proto3" json:"schematic,omitempty"`
+	// Status defines the custom health policy and status message for trait
+	Status *Status `protobuf:"bytes,8,opt,name=status,proto3" json:"status,omitempty"`
+	// ManageWorkload defines the trait would be responsible for creating the workload
+	ManageWorkload bool `protobuf:"varint,9,opt,name=manage_workload,json=manageWorkload,proto3" json:"manage_workload,omitempty"`
+	// SkipRevisionAffect defines the update this trait will not generate a new application Revision
+	SkipRevisionAffect bool `protobuf:"varint,10,opt,name=skip_revision_affect,json=skipRevisionAffect,proto3" json:"skip_revision_affect,omitempty"`
+}
+
+func (x *TraitDefinitionSpec) Reset() {
+	*x = TraitDefinitionSpec{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_playground_oam3_entities_proto_msgTypes[14]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *TraitDefinitionSpec) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*TraitDefinitionSpec) ProtoMessage() {}
+
+func (x *TraitDefinitionSpec) ProtoReflect() protoreflect.Message {
+	mi := &file_playground_oam3_entities_proto_msgTypes[14]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use TraitDefinitionSpec.ProtoReflect.Descriptor instead.
+func (*TraitDefinitionSpec) Descriptor() ([]byte, []int) {
+	return file_playground_oam3_entities_proto_rawDescGZIP(), []int{14}
+}
+
+func (x *TraitDefinitionSpec) GetDefinitionRef() *Reference {
+	if x != nil {
+		return x.DefinitionRef
+	}
+	return nil
+}
+
+func (x *TraitDefinitionSpec) GetRevisionEnabled() bool {
+	if x != nil {
+		return x.RevisionEnabled
+	}
+	return false
+}
+
+func (x *TraitDefinitionSpec) GetWorkloadRefPath() string {
+	if x != nil {
+		return x.WorkloadRefPath
+	}
+	return ""
+}
+
+func (x *TraitDefinitionSpec) GetPodDisruptive() bool {
+	if x != nil {
+		return x.PodDisruptive
+	}
+	return false
+}
+
+func (x *TraitDefinitionSpec) GetAppliesToWorkloads() []string {
+	if x != nil {
+		return x.AppliesToWorkloads
+	}
+	return nil
+}
+
+func (x *TraitDefinitionSpec) GetConflictsWith() []string {
+	if x != nil {
+		return x.ConflictsWith
+	}
+	return nil
+}
+
+func (x *TraitDefinitionSpec) GetSchematic() *Schematic {
+	if x != nil {
+		return x.Schematic
+	}
+	return nil
+}
+
+func (x *TraitDefinitionSpec) GetStatus() *Status {
+	if x != nil {
+		return x.Status
+	}
+	return nil
+}
+
+func (x *TraitDefinitionSpec) GetManageWorkload() bool {
+	if x != nil {
+		return x.ManageWorkload
+	}
+	return false
+}
+
+func (x *TraitDefinitionSpec) GetSkipRevisionAffect() bool {
+	if x != nil {
+		return x.SkipRevisionAffect
+	}
+	return false
+}
+
+// ScopeDefinition with the definition of a scope in oam3
+type ScopeDefinition struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// ApiVersion of the given scope definition.
+	ApiVersion string `protobuf:"bytes,1,opt,name=api_version,json=apiVersion,proto3" json:"api_version,omitempty"`
+	// Kind of the scope definition.
+	Kind string `protobuf:"bytes,2,opt,name=kind,proto3" json:"kind,omitempty"`
+	// Metadata associated with the scope definition.
+	Metadata *Metadata `protobuf:"bytes,3,opt,name=metadata,proto3" json:"metadata,omitempty"`
+	// Spec of the scope definition.
+	Spec *ScopeDefinitionSpec `protobuf:"bytes,4,opt,name=spec,proto3" json:"spec,omitempty"`
+}
+
+func (x *ScopeDefinition) Reset() {
+	*x = ScopeDefinition{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_playground_oam3_entities_proto_msgTypes[15]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ScopeDefinition) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ScopeDefinition) ProtoMessage() {}
+
+func (x *ScopeDefinition) ProtoReflect() protoreflect.Message {
+	mi := &file_playground_oam3_entities_proto_msgTypes[15]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ScopeDefinition.ProtoReflect.Descriptor instead.
+func (*ScopeDefinition) Descriptor() ([]byte, []int) {
+	return file_playground_oam3_entities_proto_rawDescGZIP(), []int{15}
+}
+
+func (x *ScopeDefinition) GetApiVersion() string {
+	if x != nil {
+		return x.ApiVersion
+	}
+	return ""
+}
+
+func (x *ScopeDefinition) GetKind() string {
+	if x != nil {
+		return x.Kind
+	}
+	return ""
+}
+
+func (x *ScopeDefinition) GetMetadata() *Metadata {
+	if x != nil {
+		return x.Metadata
+	}
+	return nil
+}
+
+func (x *ScopeDefinition) GetSpec() *ScopeDefinitionSpec {
+	if x != nil {
+		return x.Spec
+	}
+	return nil
+}
+
+// ScopeDefinitionSpec with the specification associated with a Scope.
+type ScopeDefinitionSpec struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// DefinitionRef to the CustomResourceDefinition that defines this scope kind.
+	DefinitionRef *Reference `protobuf:"bytes,1,opt,name=definition_ref,json=definitionRef,proto3" json:"definition_ref,omitempty"`
+	// WorkloadRefsPath indicates if/where a scope accepts workloadRef objects
+	WorkloadRefsPath string `protobuf:"bytes,2,opt,name=workload_refs_path,json=workloadRefsPath,proto3" json:"workload_refs_path,omitempty"`
+	// AllowComponentOverlap specifies whether an OAM component may exist in
+	// multiple instances of this kind of scope.
+	AllowComponentOverlap bool `protobuf:"varint,3,opt,name=allow_component_overlap,json=allowComponentOverlap,proto3" json:"allow_component_overlap,omitempty"`
+}
+
+func (x *ScopeDefinitionSpec) Reset() {
+	*x = ScopeDefinitionSpec{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_playground_oam3_entities_proto_msgTypes[16]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ScopeDefinitionSpec) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ScopeDefinitionSpec) ProtoMessage() {}
+
+func (x *ScopeDefinitionSpec) ProtoReflect() protoreflect.Message {
+	mi := &file_playground_oam3_entities_proto_msgTypes[16]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ScopeDefinitionSpec.ProtoReflect.Descriptor instead.
+func (*ScopeDefinitionSpec) Descriptor() ([]byte, []int) {
+	return file_playground_oam3_entities_proto_rawDescGZIP(), []int{16}
+}
+
+func (x *ScopeDefinitionSpec) GetDefinitionRef() *Reference {
+	if x != nil {
+		return x.DefinitionRef
+	}
+	return nil
+}
+
+func (x *ScopeDefinitionSpec) GetWorkloadRefsPath() string {
+	if x != nil {
+		return x.WorkloadRefsPath
+	}
+	return ""
+}
+
+func (x *ScopeDefinitionSpec) GetAllowComponentOverlap() bool {
+	if x != nil {
+		return x.AllowComponentOverlap
+	}
+	return false
+}
+
+// PolicyDefinition is the Schema for the policydefinitions API
+type PolicyDefinition struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// ApiVersion of the given policy definition.
+	ApiVersion string `protobuf:"bytes,1,opt,name=api_version,json=apiVersion,proto3" json:"api_version,omitempty"`
+	// Kind of the policy definition.
+	Kind string `protobuf:"bytes,2,opt,name=kind,proto3" json:"kind,omitempty"`
+	// Metadata associated with the policy definition.
+	Metadata *Metadata `protobuf:"bytes,3,opt,name=metadata,proto3" json:"metadata,omitempty"`
+	// Spec of the policy definition.
+	Spec *PolicyDefinitionSpec `protobuf:"bytes,4,opt,name=spec,proto3" json:"spec,omitempty"`
+}
+
+func (x *PolicyDefinition) Reset() {
+	*x = PolicyDefinition{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_playground_oam3_entities_proto_msgTypes[17]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *PolicyDefinition) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PolicyDefinition) ProtoMessage() {}
+
+func (x *PolicyDefinition) ProtoReflect() protoreflect.Message {
+	mi := &file_playground_oam3_entities_proto_msgTypes[17]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PolicyDefinition.ProtoReflect.Descriptor instead.
+func (*PolicyDefinition) Descriptor() ([]byte, []int) {
+	return file_playground_oam3_entities_proto_rawDescGZIP(), []int{17}
+}
+
+func (x *PolicyDefinition) GetApiVersion() string {
+	if x != nil {
+		return x.ApiVersion
+	}
+	return ""
+}
+
+func (x *PolicyDefinition) GetKind() string {
+	if x != nil {
+		return x.Kind
+	}
+	return ""
+}
+
+func (x *PolicyDefinition) GetMetadata() *Metadata {
+	if x != nil {
+		return x.Metadata
+	}
+	return nil
+}
+
+func (x *PolicyDefinition) GetSpec() *PolicyDefinitionSpec {
+	if x != nil {
+		return x.Spec
+	}
+	return nil
+}
+
+// PolicyDefinitionSpec defines the desired state of PolicyDefinition
+type PolicyDefinitionSpec struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// DefinitionRef to the CustomResourceDefinition that defines this policy kind.
+	DefinitionRef *Reference `protobuf:"bytes,1,opt,name=definition_ref,json=definitionRef,proto3" json:"definition_ref,omitempty"`
+	// Schematic defines the data format and template of the encapsulation of the policy
+	Schematic *Schematic `protobuf:"bytes,2,opt,name=schematic,proto3" json:"schematic,omitempty"`
+}
+
+func (x *PolicyDefinitionSpec) Reset() {
+	*x = PolicyDefinitionSpec{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_playground_oam3_entities_proto_msgTypes[18]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *PolicyDefinitionSpec) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PolicyDefinitionSpec) ProtoMessage() {}
+
+func (x *PolicyDefinitionSpec) ProtoReflect() protoreflect.Message {
+	mi := &file_playground_oam3_entities_proto_msgTypes[18]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PolicyDefinitionSpec.ProtoReflect.Descriptor instead.
+func (*PolicyDefinitionSpec) Descriptor() ([]byte, []int) {
+	return file_playground_oam3_entities_proto_rawDescGZIP(), []int{18}
+}
+
+func (x *PolicyDefinitionSpec) GetDefinitionRef() *Reference {
+	if x != nil {
+		return x.DefinitionRef
+	}
+	return nil
+}
+
+func (x *PolicyDefinitionSpec) GetSchematic() *Schematic {
+	if x != nil {
+		return x.Schematic
+	}
+	return nil
+}
+
+// WorkflowStepDefinition with the elements that define a workflow.
+type WorkflowStepDefinition struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// ApiVersion of the given workflow step definition.
+	ApiVersion string `protobuf:"bytes,1,opt,name=api_version,json=apiVersion,proto3" json:"api_version,omitempty"`
+	// Kind of the workflow step definition.
+	Kind string `protobuf:"bytes,2,opt,name=kind,proto3" json:"kind,omitempty"`
+	// Metadata associated with the workflow step definition.
+	Metadata *Metadata `protobuf:"bytes,3,opt,name=metadata,proto3" json:"metadata,omitempty"`
+	// Spec of the workflow step definition.
+	Spec *WorkflowStepDefinitionSpec `protobuf:"bytes,4,opt,name=spec,proto3" json:"spec,omitempty"`
+}
+
+func (x *WorkflowStepDefinition) Reset() {
+	*x = WorkflowStepDefinition{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_playground_oam3_entities_proto_msgTypes[19]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *WorkflowStepDefinition) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*WorkflowStepDefinition) ProtoMessage() {}
+
+func (x *WorkflowStepDefinition) ProtoReflect() protoreflect.Message {
+	mi := &file_playground_oam3_entities_proto_msgTypes[19]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use WorkflowStepDefinition.ProtoReflect.Descriptor instead.
+func (*WorkflowStepDefinition) Descriptor() ([]byte, []int) {
+	return file_playground_oam3_entities_proto_rawDescGZIP(), []int{19}
+}
+
+func (x *WorkflowStepDefinition) GetApiVersion() string {
+	if x != nil {
+		return x.ApiVersion
+	}
+	return ""
+}
+
+func (x *WorkflowStepDefinition) GetKind() string {
+	if x != nil {
+		return x.Kind
+	}
+	return ""
+}
+
+func (x *WorkflowStepDefinition) GetMetadata() *Metadata {
+	if x != nil {
+		return x.Metadata
+	}
+	return nil
+}
+
+func (x *WorkflowStepDefinition) GetSpec() *WorkflowStepDefinitionSpec {
+	if x != nil {
+		return x.Spec
+	}
+	return nil
+}
+
+// WorkflowStepDefinitionSpec defines the desired state of WorkflowStepDefinition
+type WorkflowStepDefinitionSpec struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// DefinitionRef to the CustomResourceDefinition that defines this workflow step kind.
+	DefinitionRef *Reference `protobuf:"bytes,1,opt,name=definition_ref,json=definitionRef,proto3" json:"definition_ref,omitempty"`
+	// Schematic defines the data format and template of the encapsulation of the workflow step
+	Schematic *Schematic `protobuf:"bytes,2,opt,name=schematic,proto3" json:"schematic,omitempty"`
+}
+
+func (x *WorkflowStepDefinitionSpec) Reset() {
+	*x = WorkflowStepDefinitionSpec{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_playground_oam3_entities_proto_msgTypes[20]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *WorkflowStepDefinitionSpec) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*WorkflowStepDefinitionSpec) ProtoMessage() {}
+
+func (x *WorkflowStepDefinitionSpec) ProtoReflect() protoreflect.Message {
+	mi := &file_playground_oam3_entities_proto_msgTypes[20]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use WorkflowStepDefinitionSpec.ProtoReflect.Descriptor instead.
+func (*WorkflowStepDefinitionSpec) Descriptor() ([]byte, []int) {
+	return file_playground_oam3_entities_proto_rawDescGZIP(), []int{20}
+}
+
+func (x *WorkflowStepDefinitionSpec) GetDefinitionRef() *Reference {
+	if x != nil {
+		return x.DefinitionRef
+	}
+	return nil
+}
+
+func (x *WorkflowStepDefinitionSpec) GetSchematic() *Schematic {
+	if x != nil {
+		return x.Schematic
+	}
+	return nil
+}
+
 var File_playground_oam3_entities_proto protoreflect.FileDescriptor
 
 var file_playground_oam3_entities_proto_rawDesc = []byte{
@@ -1063,12 +1688,122 @@ var file_playground_oam3_entities_proto_rawDesc = []byte{
 	0x0a, 0x0a, 0x64, 0x65, 0x66, 0x69, 0x6e, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x02, 0x20, 0x01,
 	0x28, 0x0b, 0x32, 0x1c, 0x2e, 0x70, 0x6c, 0x61, 0x79, 0x67, 0x72, 0x6f, 0x75, 0x6e, 0x64, 0x5f,
 	0x6f, 0x61, 0x6d, 0x33, 0x2e, 0x57, 0x6f, 0x72, 0x6b, 0x6c, 0x6f, 0x61, 0x64, 0x47, 0x56, 0x4b,
-	0x52, 0x0a, 0x64, 0x65, 0x66, 0x69, 0x6e, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x42, 0x45, 0x5a, 0x43,
-	0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x6e, 0x61, 0x70, 0x70, 0x74,
-	0x69, 0x76, 0x65, 0x2f, 0x67, 0x72, 0x70, 0x63, 0x2d, 0x70, 0x6c, 0x61, 0x79, 0x67, 0x72, 0x6f,
-	0x75, 0x6e, 0x64, 0x2d, 0x6f, 0x61, 0x6d, 0x33, 0x2d, 0x67, 0x6f, 0x3b, 0x67, 0x72, 0x70, 0x63,
-	0x5f, 0x70, 0x6c, 0x61, 0x79, 0x67, 0x72, 0x6f, 0x75, 0x6e, 0x64, 0x5f, 0x6f, 0x61, 0x6d, 0x33,
-	0x5f, 0x67, 0x6f, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x52, 0x0a, 0x64, 0x65, 0x66, 0x69, 0x6e, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x22, 0xb7, 0x01, 0x0a,
+	0x0f, 0x54, 0x72, 0x61, 0x69, 0x74, 0x44, 0x65, 0x66, 0x69, 0x6e, 0x69, 0x74, 0x69, 0x6f, 0x6e,
+	0x12, 0x1f, 0x0a, 0x0b, 0x61, 0x70, 0x69, 0x5f, 0x76, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x18,
+	0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0a, 0x61, 0x70, 0x69, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f,
+	0x6e, 0x12, 0x12, 0x0a, 0x04, 0x6b, 0x69, 0x6e, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x04, 0x6b, 0x69, 0x6e, 0x64, 0x12, 0x35, 0x0a, 0x08, 0x6d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74,
+	0x61, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x19, 0x2e, 0x70, 0x6c, 0x61, 0x79, 0x67, 0x72,
+	0x6f, 0x75, 0x6e, 0x64, 0x5f, 0x6f, 0x61, 0x6d, 0x33, 0x2e, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61,
+	0x74, 0x61, 0x52, 0x08, 0x6d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0x12, 0x38, 0x0a, 0x04,
+	0x73, 0x70, 0x65, 0x63, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x24, 0x2e, 0x70, 0x6c, 0x61,
+	0x79, 0x67, 0x72, 0x6f, 0x75, 0x6e, 0x64, 0x5f, 0x6f, 0x61, 0x6d, 0x33, 0x2e, 0x54, 0x72, 0x61,
+	0x69, 0x74, 0x44, 0x65, 0x66, 0x69, 0x6e, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x53, 0x70, 0x65, 0x63,
+	0x52, 0x04, 0x73, 0x70, 0x65, 0x63, 0x22, 0xf5, 0x03, 0x0a, 0x13, 0x54, 0x72, 0x61, 0x69, 0x74,
+	0x44, 0x65, 0x66, 0x69, 0x6e, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x53, 0x70, 0x65, 0x63, 0x12, 0x41,
+	0x0a, 0x0e, 0x64, 0x65, 0x66, 0x69, 0x6e, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x72, 0x65, 0x66,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x70, 0x6c, 0x61, 0x79, 0x67, 0x72, 0x6f,
+	0x75, 0x6e, 0x64, 0x5f, 0x6f, 0x61, 0x6d, 0x33, 0x2e, 0x52, 0x65, 0x66, 0x65, 0x72, 0x65, 0x6e,
+	0x63, 0x65, 0x52, 0x0d, 0x64, 0x65, 0x66, 0x69, 0x6e, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65,
+	0x66, 0x12, 0x29, 0x0a, 0x10, 0x72, 0x65, 0x76, 0x69, 0x73, 0x69, 0x6f, 0x6e, 0x5f, 0x65, 0x6e,
+	0x61, 0x62, 0x6c, 0x65, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x08, 0x52, 0x0f, 0x72, 0x65, 0x76,
+	0x69, 0x73, 0x69, 0x6f, 0x6e, 0x45, 0x6e, 0x61, 0x62, 0x6c, 0x65, 0x64, 0x12, 0x2a, 0x0a, 0x11,
+	0x77, 0x6f, 0x72, 0x6b, 0x6c, 0x6f, 0x61, 0x64, 0x5f, 0x72, 0x65, 0x66, 0x5f, 0x70, 0x61, 0x74,
+	0x68, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0f, 0x77, 0x6f, 0x72, 0x6b, 0x6c, 0x6f, 0x61,
+	0x64, 0x52, 0x65, 0x66, 0x50, 0x61, 0x74, 0x68, 0x12, 0x25, 0x0a, 0x0e, 0x70, 0x6f, 0x64, 0x5f,
+	0x64, 0x69, 0x73, 0x72, 0x75, 0x70, 0x74, 0x69, 0x76, 0x65, 0x18, 0x04, 0x20, 0x01, 0x28, 0x08,
+	0x52, 0x0d, 0x70, 0x6f, 0x64, 0x44, 0x69, 0x73, 0x72, 0x75, 0x70, 0x74, 0x69, 0x76, 0x65, 0x12,
+	0x30, 0x0a, 0x14, 0x61, 0x70, 0x70, 0x6c, 0x69, 0x65, 0x73, 0x5f, 0x74, 0x6f, 0x5f, 0x77, 0x6f,
+	0x72, 0x6b, 0x6c, 0x6f, 0x61, 0x64, 0x73, 0x18, 0x05, 0x20, 0x03, 0x28, 0x09, 0x52, 0x12, 0x61,
+	0x70, 0x70, 0x6c, 0x69, 0x65, 0x73, 0x54, 0x6f, 0x57, 0x6f, 0x72, 0x6b, 0x6c, 0x6f, 0x61, 0x64,
+	0x73, 0x12, 0x25, 0x0a, 0x0e, 0x63, 0x6f, 0x6e, 0x66, 0x6c, 0x69, 0x63, 0x74, 0x73, 0x5f, 0x77,
+	0x69, 0x74, 0x68, 0x18, 0x06, 0x20, 0x03, 0x28, 0x09, 0x52, 0x0d, 0x63, 0x6f, 0x6e, 0x66, 0x6c,
+	0x69, 0x63, 0x74, 0x73, 0x57, 0x69, 0x74, 0x68, 0x12, 0x38, 0x0a, 0x09, 0x73, 0x63, 0x68, 0x65,
+	0x6d, 0x61, 0x74, 0x69, 0x63, 0x18, 0x07, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x70, 0x6c,
+	0x61, 0x79, 0x67, 0x72, 0x6f, 0x75, 0x6e, 0x64, 0x5f, 0x6f, 0x61, 0x6d, 0x33, 0x2e, 0x53, 0x63,
+	0x68, 0x65, 0x6d, 0x61, 0x74, 0x69, 0x63, 0x52, 0x09, 0x73, 0x63, 0x68, 0x65, 0x6d, 0x61, 0x74,
+	0x69, 0x63, 0x12, 0x2f, 0x0a, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x18, 0x08, 0x20, 0x01,
+	0x28, 0x0b, 0x32, 0x17, 0x2e, 0x70, 0x6c, 0x61, 0x79, 0x67, 0x72, 0x6f, 0x75, 0x6e, 0x64, 0x5f,
+	0x6f, 0x61, 0x6d, 0x33, 0x2e, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x52, 0x06, 0x73, 0x74, 0x61,
+	0x74, 0x75, 0x73, 0x12, 0x27, 0x0a, 0x0f, 0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x5f, 0x77, 0x6f,
+	0x72, 0x6b, 0x6c, 0x6f, 0x61, 0x64, 0x18, 0x09, 0x20, 0x01, 0x28, 0x08, 0x52, 0x0e, 0x6d, 0x61,
+	0x6e, 0x61, 0x67, 0x65, 0x57, 0x6f, 0x72, 0x6b, 0x6c, 0x6f, 0x61, 0x64, 0x12, 0x30, 0x0a, 0x14,
+	0x73, 0x6b, 0x69, 0x70, 0x5f, 0x72, 0x65, 0x76, 0x69, 0x73, 0x69, 0x6f, 0x6e, 0x5f, 0x61, 0x66,
+	0x66, 0x65, 0x63, 0x74, 0x18, 0x0a, 0x20, 0x01, 0x28, 0x08, 0x52, 0x12, 0x73, 0x6b, 0x69, 0x70,
+	0x52, 0x65, 0x76, 0x69, 0x73, 0x69, 0x6f, 0x6e, 0x41, 0x66, 0x66, 0x65, 0x63, 0x74, 0x22, 0xb7,
+	0x01, 0x0a, 0x0f, 0x53, 0x63, 0x6f, 0x70, 0x65, 0x44, 0x65, 0x66, 0x69, 0x6e, 0x69, 0x74, 0x69,
+	0x6f, 0x6e, 0x12, 0x1f, 0x0a, 0x0b, 0x61, 0x70, 0x69, 0x5f, 0x76, 0x65, 0x72, 0x73, 0x69, 0x6f,
+	0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0a, 0x61, 0x70, 0x69, 0x56, 0x65, 0x72, 0x73,
+	0x69, 0x6f, 0x6e, 0x12, 0x12, 0x0a, 0x04, 0x6b, 0x69, 0x6e, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x04, 0x6b, 0x69, 0x6e, 0x64, 0x12, 0x35, 0x0a, 0x08, 0x6d, 0x65, 0x74, 0x61, 0x64,
+	0x61, 0x74, 0x61, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x19, 0x2e, 0x70, 0x6c, 0x61, 0x79,
+	0x67, 0x72, 0x6f, 0x75, 0x6e, 0x64, 0x5f, 0x6f, 0x61, 0x6d, 0x33, 0x2e, 0x4d, 0x65, 0x74, 0x61,
+	0x64, 0x61, 0x74, 0x61, 0x52, 0x08, 0x6d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0x12, 0x38,
+	0x0a, 0x04, 0x73, 0x70, 0x65, 0x63, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x24, 0x2e, 0x70,
+	0x6c, 0x61, 0x79, 0x67, 0x72, 0x6f, 0x75, 0x6e, 0x64, 0x5f, 0x6f, 0x61, 0x6d, 0x33, 0x2e, 0x53,
+	0x63, 0x6f, 0x70, 0x65, 0x44, 0x65, 0x66, 0x69, 0x6e, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x53, 0x70,
+	0x65, 0x63, 0x52, 0x04, 0x73, 0x70, 0x65, 0x63, 0x22, 0xbe, 0x01, 0x0a, 0x13, 0x53, 0x63, 0x6f,
+	0x70, 0x65, 0x44, 0x65, 0x66, 0x69, 0x6e, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x53, 0x70, 0x65, 0x63,
+	0x12, 0x41, 0x0a, 0x0e, 0x64, 0x65, 0x66, 0x69, 0x6e, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x72,
+	0x65, 0x66, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x70, 0x6c, 0x61, 0x79, 0x67,
+	0x72, 0x6f, 0x75, 0x6e, 0x64, 0x5f, 0x6f, 0x61, 0x6d, 0x33, 0x2e, 0x52, 0x65, 0x66, 0x65, 0x72,
+	0x65, 0x6e, 0x63, 0x65, 0x52, 0x0d, 0x64, 0x65, 0x66, 0x69, 0x6e, 0x69, 0x74, 0x69, 0x6f, 0x6e,
+	0x52, 0x65, 0x66, 0x12, 0x2c, 0x0a, 0x12, 0x77, 0x6f, 0x72, 0x6b, 0x6c, 0x6f, 0x61, 0x64, 0x5f,
+	0x72, 0x65, 0x66, 0x73, 0x5f, 0x70, 0x61, 0x74, 0x68, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x10, 0x77, 0x6f, 0x72, 0x6b, 0x6c, 0x6f, 0x61, 0x64, 0x52, 0x65, 0x66, 0x73, 0x50, 0x61, 0x74,
+	0x68, 0x12, 0x36, 0x0a, 0x17, 0x61, 0x6c, 0x6c, 0x6f, 0x77, 0x5f, 0x63, 0x6f, 0x6d, 0x70, 0x6f,
+	0x6e, 0x65, 0x6e, 0x74, 0x5f, 0x6f, 0x76, 0x65, 0x72, 0x6c, 0x61, 0x70, 0x18, 0x03, 0x20, 0x01,
+	0x28, 0x08, 0x52, 0x15, 0x61, 0x6c, 0x6c, 0x6f, 0x77, 0x43, 0x6f, 0x6d, 0x70, 0x6f, 0x6e, 0x65,
+	0x6e, 0x74, 0x4f, 0x76, 0x65, 0x72, 0x6c, 0x61, 0x70, 0x22, 0xb9, 0x01, 0x0a, 0x10, 0x50, 0x6f,
+	0x6c, 0x69, 0x63, 0x79, 0x44, 0x65, 0x66, 0x69, 0x6e, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x1f,
+	0x0a, 0x0b, 0x61, 0x70, 0x69, 0x5f, 0x76, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x0a, 0x61, 0x70, 0x69, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x12,
+	0x12, 0x0a, 0x04, 0x6b, 0x69, 0x6e, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6b,
+	0x69, 0x6e, 0x64, 0x12, 0x35, 0x0a, 0x08, 0x6d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0x18,
+	0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x19, 0x2e, 0x70, 0x6c, 0x61, 0x79, 0x67, 0x72, 0x6f, 0x75,
+	0x6e, 0x64, 0x5f, 0x6f, 0x61, 0x6d, 0x33, 0x2e, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61,
+	0x52, 0x08, 0x6d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0x12, 0x39, 0x0a, 0x04, 0x73, 0x70,
+	0x65, 0x63, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x25, 0x2e, 0x70, 0x6c, 0x61, 0x79, 0x67,
+	0x72, 0x6f, 0x75, 0x6e, 0x64, 0x5f, 0x6f, 0x61, 0x6d, 0x33, 0x2e, 0x50, 0x6f, 0x6c, 0x69, 0x63,
+	0x79, 0x44, 0x65, 0x66, 0x69, 0x6e, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x53, 0x70, 0x65, 0x63, 0x52,
+	0x04, 0x73, 0x70, 0x65, 0x63, 0x22, 0x93, 0x01, 0x0a, 0x14, 0x50, 0x6f, 0x6c, 0x69, 0x63, 0x79,
+	0x44, 0x65, 0x66, 0x69, 0x6e, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x53, 0x70, 0x65, 0x63, 0x12, 0x41,
+	0x0a, 0x0e, 0x64, 0x65, 0x66, 0x69, 0x6e, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x72, 0x65, 0x66,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x70, 0x6c, 0x61, 0x79, 0x67, 0x72, 0x6f,
+	0x75, 0x6e, 0x64, 0x5f, 0x6f, 0x61, 0x6d, 0x33, 0x2e, 0x52, 0x65, 0x66, 0x65, 0x72, 0x65, 0x6e,
+	0x63, 0x65, 0x52, 0x0d, 0x64, 0x65, 0x66, 0x69, 0x6e, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65,
+	0x66, 0x12, 0x38, 0x0a, 0x09, 0x73, 0x63, 0x68, 0x65, 0x6d, 0x61, 0x74, 0x69, 0x63, 0x18, 0x02,
+	0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x70, 0x6c, 0x61, 0x79, 0x67, 0x72, 0x6f, 0x75, 0x6e,
+	0x64, 0x5f, 0x6f, 0x61, 0x6d, 0x33, 0x2e, 0x53, 0x63, 0x68, 0x65, 0x6d, 0x61, 0x74, 0x69, 0x63,
+	0x52, 0x09, 0x73, 0x63, 0x68, 0x65, 0x6d, 0x61, 0x74, 0x69, 0x63, 0x22, 0xc5, 0x01, 0x0a, 0x16,
+	0x57, 0x6f, 0x72, 0x6b, 0x66, 0x6c, 0x6f, 0x77, 0x53, 0x74, 0x65, 0x70, 0x44, 0x65, 0x66, 0x69,
+	0x6e, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x1f, 0x0a, 0x0b, 0x61, 0x70, 0x69, 0x5f, 0x76, 0x65,
+	0x72, 0x73, 0x69, 0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0a, 0x61, 0x70, 0x69,
+	0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x12, 0x12, 0x0a, 0x04, 0x6b, 0x69, 0x6e, 0x64, 0x18,
+	0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6b, 0x69, 0x6e, 0x64, 0x12, 0x35, 0x0a, 0x08, 0x6d,
+	0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x19, 0x2e,
+	0x70, 0x6c, 0x61, 0x79, 0x67, 0x72, 0x6f, 0x75, 0x6e, 0x64, 0x5f, 0x6f, 0x61, 0x6d, 0x33, 0x2e,
+	0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0x52, 0x08, 0x6d, 0x65, 0x74, 0x61, 0x64, 0x61,
+	0x74, 0x61, 0x12, 0x3f, 0x0a, 0x04, 0x73, 0x70, 0x65, 0x63, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0b,
+	0x32, 0x2b, 0x2e, 0x70, 0x6c, 0x61, 0x79, 0x67, 0x72, 0x6f, 0x75, 0x6e, 0x64, 0x5f, 0x6f, 0x61,
+	0x6d, 0x33, 0x2e, 0x57, 0x6f, 0x72, 0x6b, 0x66, 0x6c, 0x6f, 0x77, 0x53, 0x74, 0x65, 0x70, 0x44,
+	0x65, 0x66, 0x69, 0x6e, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x53, 0x70, 0x65, 0x63, 0x52, 0x04, 0x73,
+	0x70, 0x65, 0x63, 0x22, 0x99, 0x01, 0x0a, 0x1a, 0x57, 0x6f, 0x72, 0x6b, 0x66, 0x6c, 0x6f, 0x77,
+	0x53, 0x74, 0x65, 0x70, 0x44, 0x65, 0x66, 0x69, 0x6e, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x53, 0x70,
+	0x65, 0x63, 0x12, 0x41, 0x0a, 0x0e, 0x64, 0x65, 0x66, 0x69, 0x6e, 0x69, 0x74, 0x69, 0x6f, 0x6e,
+	0x5f, 0x72, 0x65, 0x66, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x70, 0x6c, 0x61,
+	0x79, 0x67, 0x72, 0x6f, 0x75, 0x6e, 0x64, 0x5f, 0x6f, 0x61, 0x6d, 0x33, 0x2e, 0x52, 0x65, 0x66,
+	0x65, 0x72, 0x65, 0x6e, 0x63, 0x65, 0x52, 0x0d, 0x64, 0x65, 0x66, 0x69, 0x6e, 0x69, 0x74, 0x69,
+	0x6f, 0x6e, 0x52, 0x65, 0x66, 0x12, 0x38, 0x0a, 0x09, 0x73, 0x63, 0x68, 0x65, 0x6d, 0x61, 0x74,
+	0x69, 0x63, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x70, 0x6c, 0x61, 0x79, 0x67,
+	0x72, 0x6f, 0x75, 0x6e, 0x64, 0x5f, 0x6f, 0x61, 0x6d, 0x33, 0x2e, 0x53, 0x63, 0x68, 0x65, 0x6d,
+	0x61, 0x74, 0x69, 0x63, 0x52, 0x09, 0x73, 0x63, 0x68, 0x65, 0x6d, 0x61, 0x74, 0x69, 0x63, 0x42,
+	0x45, 0x5a, 0x43, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x6e, 0x61,
+	0x70, 0x70, 0x74, 0x69, 0x76, 0x65, 0x2f, 0x67, 0x72, 0x70, 0x63, 0x2d, 0x70, 0x6c, 0x61, 0x79,
+	0x67, 0x72, 0x6f, 0x75, 0x6e, 0x64, 0x2d, 0x6f, 0x61, 0x6d, 0x33, 0x2d, 0x67, 0x6f, 0x3b, 0x67,
+	0x72, 0x70, 0x63, 0x5f, 0x70, 0x6c, 0x61, 0x79, 0x67, 0x72, 0x6f, 0x75, 0x6e, 0x64, 0x5f, 0x6f,
+	0x61, 0x6d, 0x33, 0x5f, 0x67, 0x6f, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -1083,52 +1818,76 @@ func file_playground_oam3_entities_proto_rawDescGZIP() []byte {
 	return file_playground_oam3_entities_proto_rawDescData
 }
 
-var file_playground_oam3_entities_proto_msgTypes = make([]protoimpl.MessageInfo, 16)
+var file_playground_oam3_entities_proto_msgTypes = make([]protoimpl.MessageInfo, 24)
 var file_playground_oam3_entities_proto_goTypes = []interface{}{
-	(*Metadata)(nil),                // 0: playground_oam3.Metadata
-	(*Reference)(nil),               // 1: playground_oam3.Reference
-	(*Status)(nil),                  // 2: playground_oam3.Status
-	(*ComponentDefinition)(nil),     // 3: playground_oam3.ComponentDefinition
-	(*ComponentDefinitionSpec)(nil), // 4: playground_oam3.ComponentDefinitionSpec
-	(*ChildResourceKind)(nil),       // 5: playground_oam3.ChildResourceKind
-	(*Schematic)(nil),               // 6: playground_oam3.Schematic
-	(*Kube)(nil),                    // 7: playground_oam3.Kube
-	(*CUE)(nil),                     // 8: playground_oam3.CUE
-	(*HELM)(nil),                    // 9: playground_oam3.HELM
-	(*Terraform)(nil),               // 10: playground_oam3.Terraform
-	(*WorkloadGVK)(nil),             // 11: playground_oam3.WorkloadGVK
-	(*WorkloadTypeDescriptor)(nil),  // 12: playground_oam3.WorkloadTypeDescriptor
-	nil,                             // 13: playground_oam3.Metadata.AnnotationsEntry
-	nil,                             // 14: playground_oam3.Metadata.LabelsEntry
-	nil,                             // 15: playground_oam3.ChildResourceKind.SelectorEntry
-	(*structpb.Struct)(nil),         // 16: google.protobuf.Struct
+	(*Metadata)(nil),                   // 0: playground_oam3.Metadata
+	(*Reference)(nil),                  // 1: playground_oam3.Reference
+	(*Status)(nil),                     // 2: playground_oam3.Status
+	(*ComponentDefinition)(nil),        // 3: playground_oam3.ComponentDefinition
+	(*ComponentDefinitionSpec)(nil),    // 4: playground_oam3.ComponentDefinitionSpec
+	(*ChildResourceKind)(nil),          // 5: playground_oam3.ChildResourceKind
+	(*Schematic)(nil),                  // 6: playground_oam3.Schematic
+	(*Kube)(nil),                       // 7: playground_oam3.Kube
+	(*CUE)(nil),                        // 8: playground_oam3.CUE
+	(*HELM)(nil),                       // 9: playground_oam3.HELM
+	(*Terraform)(nil),                  // 10: playground_oam3.Terraform
+	(*WorkloadGVK)(nil),                // 11: playground_oam3.WorkloadGVK
+	(*WorkloadTypeDescriptor)(nil),     // 12: playground_oam3.WorkloadTypeDescriptor
+	(*TraitDefinition)(nil),            // 13: playground_oam3.TraitDefinition
+	(*TraitDefinitionSpec)(nil),        // 14: playground_oam3.TraitDefinitionSpec
+	(*ScopeDefinition)(nil),            // 15: playground_oam3.ScopeDefinition
+	(*ScopeDefinitionSpec)(nil),        // 16: playground_oam3.ScopeDefinitionSpec
+	(*PolicyDefinition)(nil),           // 17: playground_oam3.PolicyDefinition
+	(*PolicyDefinitionSpec)(nil),       // 18: playground_oam3.PolicyDefinitionSpec
+	(*WorkflowStepDefinition)(nil),     // 19: playground_oam3.WorkflowStepDefinition
+	(*WorkflowStepDefinitionSpec)(nil), // 20: playground_oam3.WorkflowStepDefinitionSpec
+	nil,                                // 21: playground_oam3.Metadata.AnnotationsEntry
+	nil,                                // 22: playground_oam3.Metadata.LabelsEntry
+	nil,                                // 23: playground_oam3.ChildResourceKind.SelectorEntry
+	(*structpb.Struct)(nil),            // 24: google.protobuf.Struct
 }
 var file_playground_oam3_entities_proto_depIdxs = []int32{
-	13, // 0: playground_oam3.Metadata.annotations:type_name -> playground_oam3.Metadata.AnnotationsEntry
-	14, // 1: playground_oam3.Metadata.labels:type_name -> playground_oam3.Metadata.LabelsEntry
+	21, // 0: playground_oam3.Metadata.annotations:type_name -> playground_oam3.Metadata.AnnotationsEntry
+	22, // 1: playground_oam3.Metadata.labels:type_name -> playground_oam3.Metadata.LabelsEntry
 	0,  // 2: playground_oam3.ComponentDefinition.metadata:type_name -> playground_oam3.Metadata
 	4,  // 3: playground_oam3.ComponentDefinition.spec:type_name -> playground_oam3.ComponentDefinitionSpec
 	12, // 4: playground_oam3.ComponentDefinitionSpec.workload:type_name -> playground_oam3.WorkloadTypeDescriptor
 	5,  // 5: playground_oam3.ComponentDefinitionSpec.child_resource_kinds:type_name -> playground_oam3.ChildResourceKind
 	2,  // 6: playground_oam3.ComponentDefinitionSpec.status:type_name -> playground_oam3.Status
 	6,  // 7: playground_oam3.ComponentDefinitionSpec.schematic:type_name -> playground_oam3.Schematic
-	15, // 8: playground_oam3.ChildResourceKind.selector:type_name -> playground_oam3.ChildResourceKind.SelectorEntry
+	23, // 8: playground_oam3.ChildResourceKind.selector:type_name -> playground_oam3.ChildResourceKind.SelectorEntry
 	7,  // 9: playground_oam3.Schematic.kube:type_name -> playground_oam3.Kube
 	8,  // 10: playground_oam3.Schematic.cue:type_name -> playground_oam3.CUE
 	9,  // 11: playground_oam3.Schematic.helm:type_name -> playground_oam3.HELM
 	10, // 12: playground_oam3.Schematic.terraform:type_name -> playground_oam3.Terraform
-	16, // 13: playground_oam3.Kube.template:type_name -> google.protobuf.Struct
-	16, // 14: playground_oam3.Kube.parameters:type_name -> google.protobuf.Struct
-	16, // 15: playground_oam3.HELM.release:type_name -> google.protobuf.Struct
-	16, // 16: playground_oam3.HELM.repository:type_name -> google.protobuf.Struct
+	24, // 13: playground_oam3.Kube.template:type_name -> google.protobuf.Struct
+	24, // 14: playground_oam3.Kube.parameters:type_name -> google.protobuf.Struct
+	24, // 15: playground_oam3.HELM.release:type_name -> google.protobuf.Struct
+	24, // 16: playground_oam3.HELM.repository:type_name -> google.protobuf.Struct
 	1,  // 17: playground_oam3.Terraform.write_connection_secret_to_reference:type_name -> playground_oam3.Reference
 	1,  // 18: playground_oam3.Terraform.provider_ref:type_name -> playground_oam3.Reference
 	11, // 19: playground_oam3.WorkloadTypeDescriptor.definition:type_name -> playground_oam3.WorkloadGVK
-	20, // [20:20] is the sub-list for method output_type
-	20, // [20:20] is the sub-list for method input_type
-	20, // [20:20] is the sub-list for extension type_name
-	20, // [20:20] is the sub-list for extension extendee
-	0,  // [0:20] is the sub-list for field type_name
+	0,  // 20: playground_oam3.TraitDefinition.metadata:type_name -> playground_oam3.Metadata
+	14, // 21: playground_oam3.TraitDefinition.spec:type_name -> playground_oam3.TraitDefinitionSpec
+	1,  // 22: playground_oam3.TraitDefinitionSpec.definition_ref:type_name -> playground_oam3.Reference
+	6,  // 23: playground_oam3.TraitDefinitionSpec.schematic:type_name -> playground_oam3.Schematic
+	2,  // 24: playground_oam3.TraitDefinitionSpec.status:type_name -> playground_oam3.Status
+	0,  // 25: playground_oam3.ScopeDefinition.metadata:type_name -> playground_oam3.Metadata
+	16, // 26: playground_oam3.ScopeDefinition.spec:type_name -> playground_oam3.ScopeDefinitionSpec
+	1,  // 27: playground_oam3.ScopeDefinitionSpec.definition_ref:type_name -> playground_oam3.Reference
+	0,  // 28: playground_oam3.PolicyDefinition.metadata:type_name -> playground_oam3.Metadata
+	18, // 29: playground_oam3.PolicyDefinition.spec:type_name -> playground_oam3.PolicyDefinitionSpec
+	1,  // 30: playground_oam3.PolicyDefinitionSpec.definition_ref:type_name -> playground_oam3.Reference
+	6,  // 31: playground_oam3.PolicyDefinitionSpec.schematic:type_name -> playground_oam3.Schematic
+	0,  // 32: playground_oam3.WorkflowStepDefinition.metadata:type_name -> playground_oam3.Metadata
+	20, // 33: playground_oam3.WorkflowStepDefinition.spec:type_name -> playground_oam3.WorkflowStepDefinitionSpec
+	1,  // 34: playground_oam3.WorkflowStepDefinitionSpec.definition_ref:type_name -> playground_oam3.Reference
+	6,  // 35: playground_oam3.WorkflowStepDefinitionSpec.schematic:type_name -> playground_oam3.Schematic
+	36, // [36:36] is the sub-list for method output_type
+	36, // [36:36] is the sub-list for method input_type
+	36, // [36:36] is the sub-list for extension type_name
+	36, // [36:36] is the sub-list for extension extendee
+	0,  // [0:36] is the sub-list for field type_name
 }
 
 func init() { file_playground_oam3_entities_proto_init() }
@@ -1293,6 +2052,102 @@ func file_playground_oam3_entities_proto_init() {
 				return nil
 			}
 		}
+		file_playground_oam3_entities_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*TraitDefinition); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_playground_oam3_entities_proto_msgTypes[14].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*TraitDefinitionSpec); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_playground_oam3_entities_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ScopeDefinition); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_playground_oam3_entities_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ScopeDefinitionSpec); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_playground_oam3_entities_proto_msgTypes[17].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*PolicyDefinition); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_playground_oam3_entities_proto_msgTypes[18].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*PolicyDefinitionSpec); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_playground_oam3_entities_proto_msgTypes[19].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*WorkflowStepDefinition); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_playground_oam3_entities_proto_msgTypes[20].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*WorkflowStepDefinitionSpec); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -1300,7 +2155,7 @@ func file_playground_oam3_entities_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_playground_oam3_entities_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   16,
+			NumMessages:   24,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

@@ -1862,3 +1862,1299 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = WorkloadTypeDescriptorValidationError{}
+
+// Validate checks the field values on TraitDefinition with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *TraitDefinition) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on TraitDefinition with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// TraitDefinitionMultiError, or nil if none found.
+func (m *TraitDefinition) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *TraitDefinition) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for ApiVersion
+
+	// no validation rules for Kind
+
+	if all {
+		switch v := interface{}(m.GetMetadata()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, TraitDefinitionValidationError{
+					field:  "Metadata",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, TraitDefinitionValidationError{
+					field:  "Metadata",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetMetadata()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return TraitDefinitionValidationError{
+				field:  "Metadata",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetSpec()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, TraitDefinitionValidationError{
+					field:  "Spec",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, TraitDefinitionValidationError{
+					field:  "Spec",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetSpec()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return TraitDefinitionValidationError{
+				field:  "Spec",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return TraitDefinitionMultiError(errors)
+	}
+	return nil
+}
+
+// TraitDefinitionMultiError is an error wrapping multiple validation errors
+// returned by TraitDefinition.ValidateAll() if the designated constraints
+// aren't met.
+type TraitDefinitionMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m TraitDefinitionMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m TraitDefinitionMultiError) AllErrors() []error { return m }
+
+// TraitDefinitionValidationError is the validation error returned by
+// TraitDefinition.Validate if the designated constraints aren't met.
+type TraitDefinitionValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e TraitDefinitionValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e TraitDefinitionValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e TraitDefinitionValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e TraitDefinitionValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e TraitDefinitionValidationError) ErrorName() string { return "TraitDefinitionValidationError" }
+
+// Error satisfies the builtin error interface
+func (e TraitDefinitionValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sTraitDefinition.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = TraitDefinitionValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = TraitDefinitionValidationError{}
+
+// Validate checks the field values on TraitDefinitionSpec with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *TraitDefinitionSpec) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on TraitDefinitionSpec with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// TraitDefinitionSpecMultiError, or nil if none found.
+func (m *TraitDefinitionSpec) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *TraitDefinitionSpec) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetDefinitionRef()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, TraitDefinitionSpecValidationError{
+					field:  "DefinitionRef",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, TraitDefinitionSpecValidationError{
+					field:  "DefinitionRef",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetDefinitionRef()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return TraitDefinitionSpecValidationError{
+				field:  "DefinitionRef",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for RevisionEnabled
+
+	// no validation rules for WorkloadRefPath
+
+	// no validation rules for PodDisruptive
+
+	if all {
+		switch v := interface{}(m.GetSchematic()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, TraitDefinitionSpecValidationError{
+					field:  "Schematic",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, TraitDefinitionSpecValidationError{
+					field:  "Schematic",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetSchematic()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return TraitDefinitionSpecValidationError{
+				field:  "Schematic",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetStatus()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, TraitDefinitionSpecValidationError{
+					field:  "Status",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, TraitDefinitionSpecValidationError{
+					field:  "Status",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetStatus()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return TraitDefinitionSpecValidationError{
+				field:  "Status",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for ManageWorkload
+
+	// no validation rules for SkipRevisionAffect
+
+	if len(errors) > 0 {
+		return TraitDefinitionSpecMultiError(errors)
+	}
+	return nil
+}
+
+// TraitDefinitionSpecMultiError is an error wrapping multiple validation
+// errors returned by TraitDefinitionSpec.ValidateAll() if the designated
+// constraints aren't met.
+type TraitDefinitionSpecMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m TraitDefinitionSpecMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m TraitDefinitionSpecMultiError) AllErrors() []error { return m }
+
+// TraitDefinitionSpecValidationError is the validation error returned by
+// TraitDefinitionSpec.Validate if the designated constraints aren't met.
+type TraitDefinitionSpecValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e TraitDefinitionSpecValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e TraitDefinitionSpecValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e TraitDefinitionSpecValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e TraitDefinitionSpecValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e TraitDefinitionSpecValidationError) ErrorName() string {
+	return "TraitDefinitionSpecValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e TraitDefinitionSpecValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sTraitDefinitionSpec.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = TraitDefinitionSpecValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = TraitDefinitionSpecValidationError{}
+
+// Validate checks the field values on ScopeDefinition with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *ScopeDefinition) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ScopeDefinition with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ScopeDefinitionMultiError, or nil if none found.
+func (m *ScopeDefinition) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ScopeDefinition) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for ApiVersion
+
+	// no validation rules for Kind
+
+	if all {
+		switch v := interface{}(m.GetMetadata()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ScopeDefinitionValidationError{
+					field:  "Metadata",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ScopeDefinitionValidationError{
+					field:  "Metadata",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetMetadata()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ScopeDefinitionValidationError{
+				field:  "Metadata",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetSpec()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ScopeDefinitionValidationError{
+					field:  "Spec",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ScopeDefinitionValidationError{
+					field:  "Spec",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetSpec()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ScopeDefinitionValidationError{
+				field:  "Spec",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return ScopeDefinitionMultiError(errors)
+	}
+	return nil
+}
+
+// ScopeDefinitionMultiError is an error wrapping multiple validation errors
+// returned by ScopeDefinition.ValidateAll() if the designated constraints
+// aren't met.
+type ScopeDefinitionMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ScopeDefinitionMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ScopeDefinitionMultiError) AllErrors() []error { return m }
+
+// ScopeDefinitionValidationError is the validation error returned by
+// ScopeDefinition.Validate if the designated constraints aren't met.
+type ScopeDefinitionValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ScopeDefinitionValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ScopeDefinitionValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ScopeDefinitionValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ScopeDefinitionValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ScopeDefinitionValidationError) ErrorName() string { return "ScopeDefinitionValidationError" }
+
+// Error satisfies the builtin error interface
+func (e ScopeDefinitionValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sScopeDefinition.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ScopeDefinitionValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ScopeDefinitionValidationError{}
+
+// Validate checks the field values on ScopeDefinitionSpec with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ScopeDefinitionSpec) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ScopeDefinitionSpec with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ScopeDefinitionSpecMultiError, or nil if none found.
+func (m *ScopeDefinitionSpec) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ScopeDefinitionSpec) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetDefinitionRef()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ScopeDefinitionSpecValidationError{
+					field:  "DefinitionRef",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ScopeDefinitionSpecValidationError{
+					field:  "DefinitionRef",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetDefinitionRef()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ScopeDefinitionSpecValidationError{
+				field:  "DefinitionRef",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for WorkloadRefsPath
+
+	// no validation rules for AllowComponentOverlap
+
+	if len(errors) > 0 {
+		return ScopeDefinitionSpecMultiError(errors)
+	}
+	return nil
+}
+
+// ScopeDefinitionSpecMultiError is an error wrapping multiple validation
+// errors returned by ScopeDefinitionSpec.ValidateAll() if the designated
+// constraints aren't met.
+type ScopeDefinitionSpecMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ScopeDefinitionSpecMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ScopeDefinitionSpecMultiError) AllErrors() []error { return m }
+
+// ScopeDefinitionSpecValidationError is the validation error returned by
+// ScopeDefinitionSpec.Validate if the designated constraints aren't met.
+type ScopeDefinitionSpecValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ScopeDefinitionSpecValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ScopeDefinitionSpecValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ScopeDefinitionSpecValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ScopeDefinitionSpecValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ScopeDefinitionSpecValidationError) ErrorName() string {
+	return "ScopeDefinitionSpecValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ScopeDefinitionSpecValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sScopeDefinitionSpec.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ScopeDefinitionSpecValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ScopeDefinitionSpecValidationError{}
+
+// Validate checks the field values on PolicyDefinition with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *PolicyDefinition) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on PolicyDefinition with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// PolicyDefinitionMultiError, or nil if none found.
+func (m *PolicyDefinition) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *PolicyDefinition) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for ApiVersion
+
+	// no validation rules for Kind
+
+	if all {
+		switch v := interface{}(m.GetMetadata()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PolicyDefinitionValidationError{
+					field:  "Metadata",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PolicyDefinitionValidationError{
+					field:  "Metadata",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetMetadata()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PolicyDefinitionValidationError{
+				field:  "Metadata",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetSpec()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PolicyDefinitionValidationError{
+					field:  "Spec",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PolicyDefinitionValidationError{
+					field:  "Spec",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetSpec()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PolicyDefinitionValidationError{
+				field:  "Spec",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return PolicyDefinitionMultiError(errors)
+	}
+	return nil
+}
+
+// PolicyDefinitionMultiError is an error wrapping multiple validation errors
+// returned by PolicyDefinition.ValidateAll() if the designated constraints
+// aren't met.
+type PolicyDefinitionMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m PolicyDefinitionMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m PolicyDefinitionMultiError) AllErrors() []error { return m }
+
+// PolicyDefinitionValidationError is the validation error returned by
+// PolicyDefinition.Validate if the designated constraints aren't met.
+type PolicyDefinitionValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PolicyDefinitionValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PolicyDefinitionValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PolicyDefinitionValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PolicyDefinitionValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PolicyDefinitionValidationError) ErrorName() string { return "PolicyDefinitionValidationError" }
+
+// Error satisfies the builtin error interface
+func (e PolicyDefinitionValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPolicyDefinition.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PolicyDefinitionValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PolicyDefinitionValidationError{}
+
+// Validate checks the field values on PolicyDefinitionSpec with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *PolicyDefinitionSpec) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on PolicyDefinitionSpec with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// PolicyDefinitionSpecMultiError, or nil if none found.
+func (m *PolicyDefinitionSpec) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *PolicyDefinitionSpec) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetDefinitionRef()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PolicyDefinitionSpecValidationError{
+					field:  "DefinitionRef",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PolicyDefinitionSpecValidationError{
+					field:  "DefinitionRef",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetDefinitionRef()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PolicyDefinitionSpecValidationError{
+				field:  "DefinitionRef",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetSchematic()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PolicyDefinitionSpecValidationError{
+					field:  "Schematic",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PolicyDefinitionSpecValidationError{
+					field:  "Schematic",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetSchematic()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PolicyDefinitionSpecValidationError{
+				field:  "Schematic",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return PolicyDefinitionSpecMultiError(errors)
+	}
+	return nil
+}
+
+// PolicyDefinitionSpecMultiError is an error wrapping multiple validation
+// errors returned by PolicyDefinitionSpec.ValidateAll() if the designated
+// constraints aren't met.
+type PolicyDefinitionSpecMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m PolicyDefinitionSpecMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m PolicyDefinitionSpecMultiError) AllErrors() []error { return m }
+
+// PolicyDefinitionSpecValidationError is the validation error returned by
+// PolicyDefinitionSpec.Validate if the designated constraints aren't met.
+type PolicyDefinitionSpecValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PolicyDefinitionSpecValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PolicyDefinitionSpecValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PolicyDefinitionSpecValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PolicyDefinitionSpecValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PolicyDefinitionSpecValidationError) ErrorName() string {
+	return "PolicyDefinitionSpecValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e PolicyDefinitionSpecValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPolicyDefinitionSpec.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PolicyDefinitionSpecValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PolicyDefinitionSpecValidationError{}
+
+// Validate checks the field values on WorkflowStepDefinition with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *WorkflowStepDefinition) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on WorkflowStepDefinition with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// WorkflowStepDefinitionMultiError, or nil if none found.
+func (m *WorkflowStepDefinition) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *WorkflowStepDefinition) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for ApiVersion
+
+	// no validation rules for Kind
+
+	if all {
+		switch v := interface{}(m.GetMetadata()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, WorkflowStepDefinitionValidationError{
+					field:  "Metadata",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, WorkflowStepDefinitionValidationError{
+					field:  "Metadata",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetMetadata()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return WorkflowStepDefinitionValidationError{
+				field:  "Metadata",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetSpec()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, WorkflowStepDefinitionValidationError{
+					field:  "Spec",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, WorkflowStepDefinitionValidationError{
+					field:  "Spec",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetSpec()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return WorkflowStepDefinitionValidationError{
+				field:  "Spec",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return WorkflowStepDefinitionMultiError(errors)
+	}
+	return nil
+}
+
+// WorkflowStepDefinitionMultiError is an error wrapping multiple validation
+// errors returned by WorkflowStepDefinition.ValidateAll() if the designated
+// constraints aren't met.
+type WorkflowStepDefinitionMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m WorkflowStepDefinitionMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m WorkflowStepDefinitionMultiError) AllErrors() []error { return m }
+
+// WorkflowStepDefinitionValidationError is the validation error returned by
+// WorkflowStepDefinition.Validate if the designated constraints aren't met.
+type WorkflowStepDefinitionValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e WorkflowStepDefinitionValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e WorkflowStepDefinitionValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e WorkflowStepDefinitionValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e WorkflowStepDefinitionValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e WorkflowStepDefinitionValidationError) ErrorName() string {
+	return "WorkflowStepDefinitionValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e WorkflowStepDefinitionValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sWorkflowStepDefinition.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = WorkflowStepDefinitionValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = WorkflowStepDefinitionValidationError{}
+
+// Validate checks the field values on WorkflowStepDefinitionSpec with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *WorkflowStepDefinitionSpec) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on WorkflowStepDefinitionSpec with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// WorkflowStepDefinitionSpecMultiError, or nil if none found.
+func (m *WorkflowStepDefinitionSpec) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *WorkflowStepDefinitionSpec) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetDefinitionRef()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, WorkflowStepDefinitionSpecValidationError{
+					field:  "DefinitionRef",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, WorkflowStepDefinitionSpecValidationError{
+					field:  "DefinitionRef",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetDefinitionRef()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return WorkflowStepDefinitionSpecValidationError{
+				field:  "DefinitionRef",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetSchematic()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, WorkflowStepDefinitionSpecValidationError{
+					field:  "Schematic",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, WorkflowStepDefinitionSpecValidationError{
+					field:  "Schematic",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetSchematic()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return WorkflowStepDefinitionSpecValidationError{
+				field:  "Schematic",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return WorkflowStepDefinitionSpecMultiError(errors)
+	}
+	return nil
+}
+
+// WorkflowStepDefinitionSpecMultiError is an error wrapping multiple
+// validation errors returned by WorkflowStepDefinitionSpec.ValidateAll() if
+// the designated constraints aren't met.
+type WorkflowStepDefinitionSpecMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m WorkflowStepDefinitionSpecMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m WorkflowStepDefinitionSpecMultiError) AllErrors() []error { return m }
+
+// WorkflowStepDefinitionSpecValidationError is the validation error returned
+// by WorkflowStepDefinitionSpec.Validate if the designated constraints aren't met.
+type WorkflowStepDefinitionSpecValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e WorkflowStepDefinitionSpecValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e WorkflowStepDefinitionSpecValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e WorkflowStepDefinitionSpecValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e WorkflowStepDefinitionSpecValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e WorkflowStepDefinitionSpecValidationError) ErrorName() string {
+	return "WorkflowStepDefinitionSpecValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e WorkflowStepDefinitionSpecValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sWorkflowStepDefinitionSpec.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = WorkflowStepDefinitionSpecValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = WorkflowStepDefinitionSpecValidationError{}
