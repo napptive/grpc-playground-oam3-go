@@ -277,3 +277,204 @@ message WorkflowStepDefinitionSpec{
 //
 // Application
 //
+
+// Application entity describing the components that form an application.
+message Application{
+    // ApiVersion of the given application.
+    string api_version = 1;
+    // Kind of the application.
+    string kind = 2;
+    // Metadata associated with the application.
+    Metadata metadata = 3;
+    // Spec of the application.
+    ApplicationSpec spec = 4;
+    // Status of the application.
+    ApplicationStatus status = 5;
+}
+
+// ApplicationSpec with the specification of the application including components, policies and workflows.
+message ApplicationSpec{
+    // Components associated with the application.
+    repeated ApplicationComponent components = 1;
+
+    // Policies defines global characteristics for all components in the application. The evaluation of policies occurrs
+    // after the components are rendered, and before the workflow steps are triggered.
+    repeated ApplicationPolicy policies = 2;
+
+    // Workflow associated with the application. If present, the workflow defines a series of steps that are executed in order
+    // with the AppRevision as source. Notice that the runtime does not applies resources if a workflow is present, as this is
+    // delegated to the workflow processing stage.
+    ApplicationWorkflow workflow = 3;
+}
+
+// ApplicationComponent describes how to instantiate a component that is part of an application.
+message ApplicationComponent{
+    // Name of the component.
+    string name = 1;
+    // Type of the component associated with the ComponentDefinition.
+    string type = 2;
+    // ExternalRevision of the component.
+    string external_revision = 3;
+    // Properties of the component. This field sets the values to the parameters exposed from the component schematic.
+    google.protobuf.Struct properties = 4;
+    // DependsOn indicates component dependencies.
+    repeated string depends_on = 5;
+    // Inputs that are used in the component.
+    repeated InputItem inputs = 6;
+    // Outputs produced by the component.
+    repeated OutputItem outputs = 7;
+    // Traits applied in the component.
+    repeated ApplicationTrait traits = 8;
+    // Scopes being applied to the component in the form of scope-type:scope-instance-name.
+    map<string, string> scopes = 9;
+    // Images used by the component definition
+    repeated string images = 10;
+}
+// InputItem defines values that are taken from other components or workflow steps and can be used as parameters.
+message InputItem{
+    // ParameterKey poiting to where the value will be applied.
+    string parameter_key = 1;
+    // From indicating the source of the value.
+    string from = 2;
+}
+
+// OutputItem defines values that are exposed by this component or workflow step.
+message OutputItem{
+    // ValueFrom indicates the source of the value.
+    string value_from = 1;
+    // Name of the value for future referencing.
+    string name = 2;
+}
+
+// ApplicationTrait with the properties of a traits that is being applied to a component.
+message ApplicationTrait{
+    // Type of the trait.
+    string type = 1;
+    // Properties of the trait
+    google.protobuf.Struct properties = 2;
+}
+
+// ApplicationPolicy defines a global policy for the all components in the application.
+message ApplicationPolicy{
+    // Name of the policy.
+    string name = 1;
+    // Type of policy.
+    string type = 2;
+    // Properties of the policy.
+    google.protobuf.Struct properties = 3;
+}
+
+// ApplicationWorkflow defines a workflow that is executed at an application level.
+message ApplicationWorkflow{
+    // steps with an array of steps
+    repeated WorkflowStep steps = 1;
+}
+
+// WorkflowStep defining a stage in the workflow process.
+message WorkflowStep{
+    // Name of the step.
+    string name = 1;
+    // Type of step.
+    string type = 2;
+    // Properties of the step type.
+    google.protobuf.Struct properties = 3;
+    // DependsOn indicates step dependencies.
+    repeated string depends_on = 4;
+    // Inputs that are used in the workflow step.
+    repeated InputItem inputs = 5;
+    // Outputs produced by the workflow step.
+    repeated OutputItem outputs = 6;
+}
+
+// ApplicationStatus with the overall application status including components, traits, and workflow.
+message ApplicationStatus{
+    // Conditions of the application.
+    repeated Condition conditions = 1;
+    // Status of the application.
+    string status = 2;
+    // Services record the status of the application components.
+    repeated ApplicationComponentStatus services = 3;
+    // Workflow status.
+    WorkflowStatus workflow = 4;
+}
+
+// Condition in which a resource can be.
+message Condition{
+    // Type of this condition. At most one of each condition type may apply to
+	// a resource at any point in time.
+    string type = 1;
+    // Status of this condition
+    string status = 2;
+    // LastTransitionTime is the last time this condition transitioned from one
+	// status to another.
+    // It is represented in RFC3339 form and is in UTC.
+    string last_transition_time = 3;
+    // Reason for this condition's last transition from one status to another.
+    string reason = 4;
+    // Message containing details about this condition's last transition from
+	// one status to another, if any.
+    string message = 5;
+}
+
+// ApplicationComponentStatus defines the status of a component.
+message ApplicationComponentStatus{
+    // Name with the name of the application component
+    string name = 1;    
+    string env = 2;
+    // Healty with a bool to indicate if the application component is healthy or not
+    bool healthy = 3;
+    // Message with information about health status of App component
+    string message = 4;
+    // Traits with the traits health status
+    repeated ApplicationTraitStatus traits = 5;
+}
+
+// ApplicationTraitStatus defines the status of a trait linked to a component.
+message ApplicationTraitStatus{
+    // Type with the trait name
+    string type = 1;
+    // Healthy with a bool to indicate if the trait is healthy or no
+    bool healthy = 2;
+    // Message with information about health status of trait
+    string message = 3;
+}
+
+// WorkflowStatus defines the overall status of an application workflow
+message WorkflowStatus{
+    // AppRevision with the application revision
+    string app_revision = 1;
+    // Mode with the mode of the workflw (DAG od StepByStep)
+    string mode = 2;
+    // Message with information about health status of workflow
+    string message = 3;
+    // Suspend to indicate if the workflow is suspend
+    bool suspend = 4;
+    // Terminated to indicate if the workflow is terminated
+    bool terminated = 5;
+    // Finished indicates that the workflow was completely executed with success.
+    bool finished = 6;
+    // steps wit information about the steps in the workflow
+    repeated WorkflowStepStatus steps = 7;
+    // StartTime with the time when the workflow started
+    string start_time = 8;
+}
+
+// WorkflowStepStatus defines the status of a single step in an application workflow.
+message WorkflowStepStatus{
+    // ID with the step identifier
+    string id = 1;
+    // Name with the step name
+    string name = 2;
+    // Type with the workflowstep type
+    string type = 3;
+    // Phase with the phase of the workflowstep (succeeded, failed, stopped or running)
+    string phase = 4;
+    // Message with information about health status of the workflow step
+    string message = 5;
+    // Reason with a  brief CamelCase message indicating details about why the workflowStep is in this state.
+    string reason = 6;
+    // FirstExecuteTime is the first time this step execution.
+    string first_execute_time = 7;
+    // LastExecuteTime is the last time this step execution.
+    string last_execute_time = 8;
+}
