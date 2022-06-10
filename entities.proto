@@ -420,13 +420,12 @@ message Condition{
 message ApplicationComponentStatus{
     // Name with the name of the application component
     string name = 1;    
-    string env = 2;
     // Healty with a bool to indicate if the application component is healthy or not
-    bool healthy = 3;
+    bool healthy = 2;
     // Message with information about health status of App component
-    string message = 4;
+    string message = 3;
     // Traits with the traits health status
-    repeated ApplicationTraitStatus traits = 5;
+    repeated ApplicationTraitStatus traits = 4;
 }
 
 // ApplicationTraitStatus defines the status of a trait linked to a component.

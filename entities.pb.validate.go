@@ -4918,8 +4918,6 @@ func (m *ApplicationComponentStatus) validate(all bool) error {
 
 	// no validation rules for Name
 
-	// no validation rules for Env
-
 	// no validation rules for Healthy
 
 	// no validation rules for Message
