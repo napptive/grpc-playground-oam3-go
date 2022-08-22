@@ -94,7 +94,21 @@ message Kube{
     // Template defines the raw Kubernetes resource
     google.protobuf.Struct template = 1;
     // Parameters defines configurable parameters
-    google.protobuf.Struct parameters = 2;
+    repeated KubeParameter parameters = 2;
+}
+
+// KubeParameter defines a component parameter
+message KubeParameter {
+    // Name of the parameter
+    string name = 1;
+    // type with the type of the parameter. Only basic types supported (string, number and boolean)
+    string type = 2;
+    // FieldPaths with an array of JSON paths that will be overwritten by the value of this parameter.
+    repeated string fieldPaths = 3;
+    // Required specifies if the value for this parameter must be supplied or not
+    bool required = 4;
+    // Description of the parameter
+    string description = 5;
 }
 
 // CUE defines the encapsulation in CUE format.
